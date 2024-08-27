@@ -13,6 +13,7 @@ export default function NavBar() {
               <li className="navbaritem"><Link to="/products" className="navbarlink">Films</Link></li>
               <li className="navbaritem"><Link to="/shoppingcart" className="navbarlink"><FaShoppingCart /> </Link></li>      
               <li className="navbaritem"><Link to="/user" className="navbarlink">Contacta con nosotros</Link></li>
+              <li className="navbaritem"><Link to="/form" className="navbarlink">Encuentra tu película</Link></li>
             </div>
           </ul>
         </nav>

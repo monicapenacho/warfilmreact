@@ -14,6 +14,7 @@ import { CartProvider } from './componentes/CartContext';             //Context
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import CarouselIntervalAleatorio from './componentes/CarouselIntervalAleatorio';
 import NewUserFormReact from './pages/NewUserFormReact.js';
+import Formulario from './pages/Formulario.js';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/shoppingcart" element={<ShoppingCartContext />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/user" element={<NewUserFormReact />} />
+          <Route path="/form" element={<Formulario />} />
         </Routes>
         <Footer />
       </Router>

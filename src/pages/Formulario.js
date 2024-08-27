@@ -1,8 +1,8 @@
-import Input from "./Input";
-import Label from "./Label";
-import TextArea from "./TextArea";
+import Input from "../componentes/Input";
+import Label from "../componentes/Label";
+import TextArea from "../componentes/TextArea";
 import { useEffect, useState } from "react";
-import CheckboxGroup from "./CheckboxGroup_";
+import CheckboxGroup from "../componentes/CheckboxGroup_";
 
 export default function Formulario() {
 
@@ -45,23 +45,23 @@ export default function Formulario() {
         <form action="" method="get">
             <div>
                 <Label htmlFor="name" text="Nombre:" />
-                <Input type="text" name="name" id="name" maxLength={50} />
+                <Input type="text" name="name" id="name" maxLength={50} value={film.name} />
             </div>
             <div>
                 <Label htmlFor="year" text="Año:" />
-                <Input type="number" name="year" id="year" minLength={4} maxLength={4} />
+                <Input type="number" name="year" id="year" minLength={4} maxLength={4} value={film.year} />
             </div>
             <div>
                 <Label htmlFor="director" text="Director:" />
-                <Input type="text" name="director" id="director" maxLength={50} />
+                <Input type="text" name="director" id="director" maxLength={50} value={film.director} />
             </div>
             <div>
                 <Label htmlFor="synopsis" text="Sinopsis:" />
-                <TextArea name="synopsis" id="synopsis" maxLength={50} />
+                <TextArea name="synopsis" id="synopsis" maxLength={50} value={film.synopsis} />
             </div>
             <div>
                 <Label htmlFor="runtime" text="Duración:" />
-                <Input type="number" name="runtime" id="runtime" maxLength={4} />
+                <Input type="number" name="runtime" id="runtime" maxLength={4} value={film.runtime} />
             </div>
             <div>
                 <Label htmlFor="countries" text="Países:" />
@@ -72,24 +72,24 @@ export default function Formulario() {
                 />
             </div>
             <div>
-                Países seleccionados: {selectedCountries.join(", ")}
+                Países seleccionados: {selectedCountries.join(", ")} {film.countries}
             </div>
             <div>
                 <Label htmlFor="genre" text="Género:" />
-                <Input type="text" name="genre" id="genre" maxLength={50} />
+                <Input type="text" name="genre" id="genre" maxLength={50} value={film.genre}/>
             </div>
             <div>
                 <Label htmlFor="image" text="Imagen:" />
-                <img src="" alt="imagen" />
+                <img src={film.image} alt="imagen" />
             </div>
  
             <div>
                 <Label htmlFor="war" text="Guerra:" />
-                <Input type="text" name="war" id="war" maxLength={50} />
+                <Input type="text" name="war" id="war" maxLength={50} value={film.war} />
             </div>
             <div>
                 <Label htmlFor="era" text="Era:" />
-                <Input type="text" name="era" id="era" maxLength={50} />
+                <Input type="text" name="era" id="era" maxLength={50} value={film.era} />
             </div>
             <div>
                 <Input type="submit" value="Enviar" />
