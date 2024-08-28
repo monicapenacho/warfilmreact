@@ -1,13 +1,13 @@
 // server.js
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const server = express();
+const app = express();
 const cors = require('cors');
-const port = 3500;
-server.use(cors());  // Permitir CORS para todas las solicitudes
+const port = 5000;
+app.use(cors());  // Permitir CORS para todas las solicitudes
 
 // Middleware para parsear el cuerpo de las solicitudes como JSON
-server.use(express.json());
+app.use(express.json());
 
 const users = {
     'user1': { password: 'password1', role: 'user' },
@@ -16,7 +16,7 @@ const users = {
 
 const secretKey = 'your_secret_key';
 
-server.post('/api/login', (req, res) => {
+app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     const user = users[username];
 
@@ -47,14 +47,14 @@ const authorizeRole = (role) => (req, res, next) => {
     }
 };
 
-server.get('/api/user', authenticateToken, (req, res) => {
+app.get('/api/user', authenticateToken, (req, res) => {
     res.json({ message: 'Hello User!' });
 });
 
-server.get('/api/admin', authenticateToken, authorizeRole('admin'), (req, res) => {
+app.get('/api/admin', authenticateToken, authorizeRole('admin'), (req, res) => {
     res.json({ message: 'Hello Admin!' });
 });
 
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });

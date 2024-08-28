@@ -33,11 +33,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/products" element={<FilmListContext />} />
+          <Route path="/films" element={<FilmListContext />} />
           <Route path="/shoppingcart" element={<ShoppingCartContext />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/user" element={<NewUserFormReact />} />
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/user" element={<PrivateRoute role="user"><UserPage /></PrivateRoute>} />
           <Route path="/admin" element={<PrivateRoute role="admin"><AdminPage /></PrivateRoute>} />
           <Route path="/form" element={<Formulario />} />

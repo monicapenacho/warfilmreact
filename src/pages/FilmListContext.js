@@ -26,7 +26,7 @@ export default function FilmListContext() {
           
           if (data) {
             const filmsList = data.data;
-// console.log("este es el console log de films  ", filmsList);
+            // console.log("este es el console log de films  ", filmsList);
 
             // Obtener detalles adicionales de cada Film
             const newFilmsList = filmsList.map((film) => ({
