@@ -8,6 +8,8 @@ import { FaShoppingCart } from "react-icons/fa";
 export default function Film({ film }) {
 
     const { addToCart } = useContext(CartContext);
+    console.log(film);
+    
 
     return (
       <div className="film">

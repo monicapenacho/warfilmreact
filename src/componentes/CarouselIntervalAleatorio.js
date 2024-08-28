@@ -4,6 +4,8 @@ import CarouselImage from './CarouselImage';
 
 function CarouselIntervalAleatorio({films}) {
  
+  console.log(films);
+  
   return (  
  
     <Carousel className="carouselContainer">

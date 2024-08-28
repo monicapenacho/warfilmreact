@@ -22,31 +22,27 @@ export default function FilmListContext() {
         .then((response) => response.json())
         .then((data) => {
           console.log("Respuesta de la API:", data); // Verificar el contenido de la respuesta
-          if (data && Array.isArray(data.data)) {
+          // console.log(data.data);
+          
+          if (data) {
             const filmsList = data.data;
+// console.log("este es el console log de films  ", filmsList);
 
             // Obtener detalles adicionales de cada Film
-            const promises = filmsList.map((film) =>
-              fetch(film.url)
-                .then((res) => res.json())  // recoge la respuesta json
-                .then((resData) => ({
-                  id: resData.id,
-                  name: resData.name,
-                  price: `$${(resData.id * 10).toFixed(2)}`, // Asignamos un precio basado en su id
-                  // image: resData.sprites.front_default, 
-                  image: resData.image, 
-                }))
-
-          );
-          // Promise.all Espera que todas las promesas se resuelvan
-            Promise.all(promises).then((filmData) => {
-                setFilms(filmData);
-                console.log("filmData:", filmData) ;
-
-                // Seleccionar tres Pokémon aleatorios
-                const selectedFilms = getRandomFilms(filmData, 3);
-                setCarouselFilms(selectedFilms);
-            });
+            const newFilmsList = filmsList.map((film) => ({
+              id: film._id,
+              name: film.name,
+              price: `$${(parseInt(film._id, 16) % 100).toFixed(2)}`, // Generar un precio ficticio basado en el id
+              image: film.image
+          })) 
+            console.log(newFilmsList);
+          
+    
+            // Seleccionar tres films aleatorios
+            const selectedFilms = getRandomFilms(newFilmsList, 3);
+            setCarouselFilms(selectedFilms);
+            setFilms(newFilmsList);
+            
           } else {
             console.error("Error: La estructura de datos no es la esperada.");
             setFilms([]); // Evitar errores en el map estableciendo un array vacío
@@ -65,7 +61,7 @@ export default function FilmListContext() {
       <CarouselIntervalAleatorio films={carouselFilms} />
       <div className="product-list">
         {films.map((film) => (
-          <Film key={film.id} product={film}/>
+          <Film film={film}/>
         ))}
       </div>
     </div>
