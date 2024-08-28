@@ -7,12 +7,13 @@ import CheckboxGroup from "../componentes/CheckboxGroup_";
 export default function Formulario() {
 
     const [film, setFilm] = useState({});       //useState es un objeto {}
+    const [message, setMessage] = useState("");   //se crea variable de estado para guardar el mensaje de que el formulario se ha modificado con éxito
 
     useEffect(() => {
         //"http://localhost:3500/getById/${variable}"  //ruta - evento (vble estado) en el listado y pintar el listado
         fetch("http://localhost:3500/getById/66cbba85e7296909b9d9a51d", {       
             headers: {                                        //definir en el fetch los headers
-             "Content-type": "application/json"
+             "Content-type": "application/json",
             }
          }) 
             .then(response => response.json())
@@ -41,8 +42,44 @@ export default function Formulario() {
         setSelectedCountries(selected);
     };
 
+    const handleChange = (event) => {
+        const key = event.target.id;
+        const value = event.target.value;
+        setFilm({...film, [key]: value})
+    }
+
+    //fetch sólo se ejecutará cuando presione el botón de enviar (escucho evento on submit y se ejecuta función handle submit) y no cuando entro en la url. Importante mensaje para avisar del cambio
+
+    const handleSubmit = (ev) => {
+        ev.preventDefault();                                    // evita que la página se refresque
+        // Obtener el token de algún lugar, por ejemplo, localStorage o el estado
+        const token = localStorage.getItem('token'); // el token tiene que estaralmacenado en localStorage
+         // Verificar si el token está disponible
+        if (!token) {
+        setMessage('No se encontró un token de autenticación. Por favor, inicia sesión.');
+        return;
+        }
+        fetch("http://localhost:3500/updateFilm/66cbba85e7296909b9d9a51d", {   
+            method:"PUT",                                      //ruta en back = put
+            body: JSON.stringify(film),                        // objeto body es un string (por el body se manda la película)
+            headers: {                                        //definir en el fetch los headers
+             "Content-type": "application/json",
+             "Authorization":`Bearer ${token}`,               //enviar token de front a back y siempre por el header:  incluir el token en el encabezado de autorización
+            }
+         }) 
+            .then(response => response.json())
+            .then((info) => {
+                console.log(info)
+                setMessage(`La película ${info.name} se ha modificado con éxito`);                
+            })
+            .catch((error) => {
+                console.error('Error al actualizar la película', error);
+                setMessage('Ocurrió un error al actualizar la película');
+            });
+    };
+
     return (
-        <form action="" method="get">
+        <form action="" method="get" onChange={handleChange} onSubmit={handleSubmit}>
             <div>
                 <Label htmlFor="name" text="Nombre:" />
                 <Input type="text" name="name" id="name" maxLength={50} value={film.name} />
@@ -94,6 +131,7 @@ export default function Formulario() {
             <div>
                 <Input type="submit" value="Enviar" />
             </div>
+            <p>{message}</p>                                
         </form>
     );
 }
