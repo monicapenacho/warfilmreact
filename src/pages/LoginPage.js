@@ -27,7 +27,7 @@ function LoginPage() {
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
-            navigate('/films');                             //cambiar user por films
+            navigate('/user');                             
         } catch (error) {
             console.error('Login failed', error);
         }
